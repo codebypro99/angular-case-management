@@ -1,0 +1,72 @@
+<form class="case-form" [formGroup]="form()" (ngSubmit)="submitted.emit()">
+  <div class="form-grid">
+    <div class="field wide">
+      <label for="title">Title</label>
+      <input id="title" class="control" formControlName="title" placeholder="Review onboarding packet" />
+      @if (error('title'); as message) {
+        <span class="error">{{ message }}</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="requester">Requester</label>
+      <input id="requester" class="control" formControlName="requester" placeholder="Client or internal requester" />
+      @if (error('requester'); as message) {
+        <span class="error">{{ message }}</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="priority">Priority</label>
+      <select id="priority" class="control" formControlName="priority">
+        @for (item of priorities; track item) {
+          <option [value]="item">{{ priorityLabels[item] }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="assigneeId">Owner</label>
+      <select id="assigneeId" class="control" formControlName="assigneeId">
+        <option [ngValue]="null">Unassigned</option>
+        @for (assignee of assignees(); track assignee.id) {
+          <option [value]="assignee.id">{{ assignee.name }} · {{ assignee.role }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="dueDate">Due date</label>
+      <input id="dueDate" class="control" type="date" formControlName="dueDate" />
+      @if (error('dueDate'); as message) {
+        <span class="error">{{ message }}</span>
+      }
+    </div>
+
+    <div class="field wide">
+      <label for="summary">Summary</label>
+      <textarea id="summary" class="control summary" formControlName="summary" placeholder="Describe the business workflow and expected next step."></textarea>
+      @if (error('summary'); as message) {
+        <span class="error">{{ message }}</span>
+      }
+    </div>
+  </div>
+
+  <footer>
+    <div class="save-state">
+      @if (saving()) {
+        Saving changes...
+      } @else if (lastSavedAt()) {
+        Autosaved at {{ lastSavedAt() }}
+      } @else if (isEdit()) {
+        Autosave activates after the first valid change.
+      } @else {
+        Create the draft to enable autosave.
+      }
+    </div>
+    <div class="actions">
+      <showcase-button type="button" variant="secondary" [disabled]="saving()" (click)="saved.emit()">Save draft</showcase-button>
+      <showcase-button type="submit" [disabled]="saving()">Submit</showcase-button>
+    </div>
+  </footer>
+</form>

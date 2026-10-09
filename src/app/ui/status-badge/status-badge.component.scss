@@ -1,0 +1,28 @@
+.badge {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  padding: 7px 10px;
+}
+
+.new {
+  background: #e8f2ff;
+  color: #1557b0;
+}
+
+.in-review {
+  background: #fff3dc;
+  color: var(--warning);
+}
+
+.approved {
+  background: #e4f7ed;
+  color: var(--success);
+}
+
+.rejected {
+  background: #ffe7e4;
+  color: var(--danger);
+}

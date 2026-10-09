@@ -1,0 +1,30 @@
+{
+  "name": "angular-enterprise-dashboard-showcase",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A sanitized Angular enterprise dashboard showcase based on production architecture patterns.",
+  "scripts": {
+    "start": "ng serve --host 0.0.0.0 --port 4300",
+    "build": "ng build",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit"
+  },
+  "dependencies": {
+    "@angular/animations": "20.3.26",
+    "@angular/common": "20.3.26",
+    "@angular/compiler": "20.3.26",
+    "@angular/core": "20.3.26",
+    "@angular/forms": "20.3.26",
+    "@angular/platform-browser": "20.3.26",
+    "@angular/router": "20.3.26",
+    "@ngxs/store": "20.1.0",
+    "rxjs": "7.8.1",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.15.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^20.3.32",
+    "@angular/cli": "~20.3.32",
+    "@angular/compiler-cli": "20.3.26",
+    "typescript": "~5.8.3"
+  }
+}

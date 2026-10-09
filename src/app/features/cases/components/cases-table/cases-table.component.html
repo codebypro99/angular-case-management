@@ -1,0 +1,39 @@
+@if (cases().length) {
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Case</th>
+          <th>Requester</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Owner</th>
+          <th>Due</th>
+          <th class="actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (caseItem of cases(); track caseItem.id) {
+          <tr>
+            <td>
+              <a [routerLink]="['/cases', caseItem.id, 'edit']" class="case-link">{{ caseItem.title }}</a>
+              <small>{{ caseItem.summary }}</small>
+            </td>
+            <td>{{ caseItem.requester }}</td>
+            <td><showcase-status-badge [status]="caseItem.status" /></td>
+            <td>{{ priorityLabels[caseItem.priority] }}</td>
+            <td>{{ caseItem.assigneeId ? assigneeNameById()[caseItem.assigneeId] : 'Unassigned' }}</td>
+            <td>{{ caseItem.dueDate | date: 'mediumDate' }}</td>
+            <td class="actions">
+              @if (caseItem.status !== 'approved') {
+                <showcase-button variant="secondary" (click)="statusChanged.emit({ id: caseItem.id, status: 'approved' })">Approve</showcase-button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <showcase-empty-state title="No cases match these filters" message="Adjust the filters or create a new case draft." />
+}

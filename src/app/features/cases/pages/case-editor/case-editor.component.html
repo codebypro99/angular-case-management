@@ -1,0 +1,17 @@
+<header class="page-header">
+  <div>
+    <p>Reactive form, draft flow, autosave</p>
+    <h1>{{ caseId() ? 'Edit case' : 'Create case draft' }}</h1>
+  </div>
+  <showcase-button routerLink="/cases" variant="secondary">Back to dashboard</showcase-button>
+</header>
+
+<showcase-case-form
+  [form]="form"
+  [assignees]="facade.assignees()"
+  [saving]="facade.saving()"
+  [isEdit]="!!caseId()"
+  [lastSavedAt]="facade.lastSavedAt()"
+  (saved)="save()"
+  (submitted)="submit()"
+/>

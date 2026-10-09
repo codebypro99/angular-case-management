@@ -1,0 +1,51 @@
+<header class="page-header">
+  <div>
+    <p>Portfolio-safe Angular feature slice</p>
+    <h1>Case management dashboard</h1>
+  </div>
+  <showcase-button routerLink="/cases/new">New case</showcase-button>
+</header>
+
+<section class="metrics" aria-label="Case metrics">
+  <showcase-metric-card label="Total cases" [value]="facade.total()" />
+  <showcase-metric-card label="New on this page" [value]="newCount()" />
+  <showcase-metric-card label="In review" [value]="reviewCount()" />
+  <showcase-metric-card label="High priority" [value]="highPriorityCount()" />
+</section>
+
+<section class="filters">
+  <div class="field">
+    <label for="search">Search</label>
+    <input id="search" class="control" [ngModel]="facade.filters().search" (ngModelChange)="setSearch($event)" placeholder="Title, requester, or summary" />
+  </div>
+
+  <div class="field">
+    <label for="status">Status</label>
+    <select id="status" class="control" [ngModel]="facade.filters().status" (ngModelChange)="setStatus($event)">
+      <option value="all">All statuses</option>
+      @for (status of statuses; track status) {
+        <option [value]="status">{{ statusLabels[status] }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="priority">Priority</label>
+    <select id="priority" class="control" [ngModel]="facade.filters().priority" (ngModelChange)="setPriority($event)">
+      <option value="all">All priorities</option>
+      @for (priority of priorities; track priority) {
+        <option [value]="priority">{{ priorityLabels[priority] }}</option>
+      }
+    </select>
+  </div>
+</section>
+
+@if (facade.loading()) {
+  <div class="loading">Loading dashboard...</div>
+} @else {
+  <showcase-cases-table
+    [cases]="facade.cases()"
+    [assigneeNameById]="assigneeNameById()"
+    (statusChanged)="facade.changeStatus($event.id, $event.status)"
+  />
+}
